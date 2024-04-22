@@ -26,7 +26,10 @@ function App() {
       <button onClick={clickFunction1}>Azalt</button> */}
       <input onChange={(e) => setName(e.target.value)} />
       <button onClick={() => setData(prev => ([...prev, name]))}>Tıkla</button>
-      <div>{data}</div>
+      <div>
+        {data.map(
+          (m, i) => (<div key={i}>{m}</div>))}
+      </div>
     </>
   )
 }
