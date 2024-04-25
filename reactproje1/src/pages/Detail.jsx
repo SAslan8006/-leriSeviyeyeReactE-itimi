@@ -1,24 +1,30 @@
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { data } from './Home1';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom'
 
 const Detail = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
     const { id } = useParams();
-    const [getData, setGetData] = useState(null);
+    const [singledata, setSingleData] = useState([]);
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        if (id)
-            setGetData(data.find(dt => dt.id == id));
+        const getData = async () => {
+            setLoading(true);
+            const { data } = await axios.get(`https://fakestoreapi.com/products/${id}`);
+            setSingleData(data)
+            setLoading(false);
+        }
+        getData();
     }, [id])
 
     return (
-        <div onClick={() => navigate("/")} style={{ cursor: "pointer", marginBottom: '30px' }}>
-            <div > {getData?.name}</div >
-            <div>{getData?.description}</div>
-            <hr />
-        </div >
+        loading ? <div>Loading...</div> :
+            <div>
+                <div>{singledata?.title}</div>
+                <img style={{ width: "100px" }} src={singledata?.image} alt="" />
+            </div>
+
+
     )
 }
 

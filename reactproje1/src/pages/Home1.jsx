@@ -1,35 +1,35 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
 
-export const data = [
-    {
-        id: 0,
-        name: "React",
-        description: "React Açıklaması"
-    },
-    {
-        id: 1,
-        name: "React Native",
-        description: "React Native Açıklaması 1"
-    },
-    {
-        id: 2,
-        name: "Vue",
-        description: "Vue Açıklaması"
-    }
-]
 const Home1 = () => {
     const navigate = useNavigate();
+    const [alldata, setAllData] = useState([]);
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        const getData = async () => {
+            setLoading(true);
+            const { data } = await axios.get('https://fakestoreapi.com/products');
+            setAllData(data)
+            setLoading(false);
+        }
+        getData();
+    }, [])
 
     return (
-        <div>
-            {data.map((dt, i) => (
-                <div onClick={() => navigate(`/detail/${dt.id}`)} style={{ cursor: "pointer", marginBottom: '30px' }} key={i}>
-                    <div >{dt.name}</div>
-                    <div>{dt.description}</div>
-                    <hr />
-                </div>))}
-        </div>
+        loading ? <div>Loading...</div> :
+            <div>
+                {alldata?.map((data, i) => (
+                    <div onClick={() => navigate(`detail/${data?.id}`)} style={{ marginBottom: "30px", cursor: 'pointer' }} key={i} >
+                        <div >
+                            <div>{data?.title}</div>
+                            <img style={{ width: "100px" }} src={data?.image} alt="" />
+                        </div>
+                    </div>
+                ))
+                }
+            </div >
     )
 }
 
