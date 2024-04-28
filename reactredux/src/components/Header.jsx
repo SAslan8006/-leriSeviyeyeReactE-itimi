@@ -1,4 +1,3 @@
-import React from 'react'
 import { MdPostAdd } from "react-icons/md";
 const Header = () => {
     return (
