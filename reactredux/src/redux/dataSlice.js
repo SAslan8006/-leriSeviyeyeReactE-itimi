@@ -15,21 +15,13 @@ export const getProducts = createAsyncThunk('products/getProducts', async () => 
 export const dataSlice = createSlice({
     name: 'data',
     initialState,
-    reducers: {},
-    extraReducers: (builder) => {
-        builder
-            .addCase(getProducts.pending, (state, action) => {
-                state.dataStatus = STATUS.LOADING;
-            })
-            .addCase(getProducts.fulfilled, (state, action) => {
-                state.dataStatus = STATUS.SUCCESS;
-                state.products = action.payload
-            })
-            .addCase(getProducts.rejected, (state, action) => {
-                state.dataStatus = STATUS.FAIL;
-            })
-    }
+    reducers: {
+        createDataFunc: (state, action) => {
+            state.data = [...state.data, action.payload]
+        }
+    },
 })
 
+export const { createDataFunc } = dataSlice.actions
 
 export default dataSlice.reducer

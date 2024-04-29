@@ -11,7 +11,6 @@ export const modalSlice = createSlice({
     reducers: {
         modalFunc: (state) => {
             state.modal = !state.modal
-            console.log(state.modal)
         },
     },
 
