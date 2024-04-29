@@ -1,13 +1,17 @@
-import React from 'react'
-import Header from '../components/Header'
 import ProductCard from '../components/ProductCard'
-import Footer from '../components/Footer'
+import { useSelector } from 'react-redux'
+import Modal from './../components/Modal';
 
 const Product = () => {
+    const { modal } = useSelector(state => state.modal)
+    console.log(modal)
+    const buttonFunc = () => {
+
+    }
     return (
         <div>
             <ProductCard />
-            <Footer />
+            {modal && <Modal title={"Ürün Oluştur"} btnText={"Oluştur"} btnFunc={buttonFunc} />}
         </div>
     )
 }
