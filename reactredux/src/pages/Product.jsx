@@ -13,7 +13,7 @@ const Product = () => {
     const [productInfo, setProductInfo] = useState({ name: "", price: "", url: "" })
     const dispatch = useDispatch();
     const buttonFunc = () => {
-        dispatch(createDataFunc(productInfo));
+        dispatch(createDataFunc({ ...productInfo, id: data.length + 1 }))
         dispatch(modalFunc())
     }
     const onChangeFunc = (e, type) => {
