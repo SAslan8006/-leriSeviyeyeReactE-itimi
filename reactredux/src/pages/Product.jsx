@@ -6,7 +6,7 @@ import Button from '../components/Button';
 import { useEffect, useState } from 'react';
 import { createDataFunc, updateDataFunc } from '../redux/dataSlice';
 import { modalFunc } from '../redux/modalSlice';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Product = () => {
     const { modal } = useSelector(state => state.modal)
@@ -15,6 +15,7 @@ const Product = () => {
     const [productInfo, setProductInfo] = useState({ name: "", price: "", url: "" })
     const dispatch = useDispatch();
     let loc = location?.search.split('=')[1]
+    const navigate = useNavigate();
     useEffect(() => {
         if (loc) {
             setProductInfo(data.find(dt => dt.id == loc))
@@ -28,7 +29,7 @@ const Product = () => {
     const buttonUpdateFunc = () => {
         dispatch(updateDataFunc({ ...productInfo, id: loc }))
         dispatch(modalFunc())
-
+        navigate("/")
     }
     const onChangeFunc = (e, type) => {
         if (type == "url") {

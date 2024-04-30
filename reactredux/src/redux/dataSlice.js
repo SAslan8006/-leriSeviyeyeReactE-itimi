@@ -25,9 +25,12 @@ export const dataSlice = createSlice({
         updateDataFunc: (state, action) => {
             state.data = [...state.data.map(dt => dt.id == action.payload.id ? ({ ...dt, ...action.payload }) : dt)]
         },
+        sortingDataFunc: (state, action) => {
+            state.data = [...state.data.sort((a, b) => action.payload == "asc" ? a.price - b.price : action.payload == "desc" ? b.price - a.price : null)]
+        },
     },
 })
 
-export const { createDataFunc, deleteDataFunc, updateDataFunc } = dataSlice.actions
+export const { sortingDataFunc, createDataFunc, deleteDataFunc, updateDataFunc } = dataSlice.actions
 
 export default dataSlice.reducer
