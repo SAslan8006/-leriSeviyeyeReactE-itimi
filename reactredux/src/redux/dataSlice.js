@@ -4,6 +4,7 @@ import { STATUS } from '../utils/status';
 const initialState = {
     data: [],
     dataStatus: STATUS.IDLE,
+    keyword: ""
 }
 
 export const getProducts = createAsyncThunk('products/getProducts', async () => {
@@ -28,9 +29,12 @@ export const dataSlice = createSlice({
         sortingDataFunc: (state, action) => {
             state.data = [...state.data.sort((a, b) => action.payload == "asc" ? a.price - b.price : action.payload == "desc" ? b.price - a.price : null)]
         },
+        searchDataFunc: (state, action) => {
+            state.keyword = action.payload
+        },
     },
 })
 
-export const { sortingDataFunc, createDataFunc, deleteDataFunc, updateDataFunc } = dataSlice.actions
+export const { sortingDataFunc, createDataFunc, deleteDataFunc, updateDataFunc, searchDataFunc } = dataSlice.actions
 
 export default dataSlice.reducer
