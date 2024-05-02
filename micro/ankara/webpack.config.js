@@ -47,6 +47,7 @@ module.exports = (_, argv) => ({
       exposes: {
         "./Header": "./src/component/Header.jsx",
         "./Datatables": "./src/component/Datatables.jsx",
+        "./addRow": "./src/utils/addRow.js",
       },
       shared: {
         ...deps,
